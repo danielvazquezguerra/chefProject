@@ -1,0 +1,26 @@
+@import 'colors.scss';
+
+
+body {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+.wrapper {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    color: $prusianBlue;
+    border: 3px solid $prusianBlue;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+
+    .content {
+        display: flex;
+        width: 80%;
+        height: 80%;
+        border: 1px solid $prusianBlue; 
+    }
+}
