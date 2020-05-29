@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Posts;
+use App\User;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Posts::all();
-
-        return $posts;
+        //
     }
 
     /**
@@ -24,40 +22,40 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        $data=$request->all();
-
-        $post=new Posts();
-        $post->titulo=$data["titulo"];
-
-        $post->save();
-
-        return $post;
+        //
     }
-    
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Posts  $posts
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(User $user)
     {
-        $post = Posts::find($id);
-
-        return $post;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Posts  $posts
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Posts $posts)
+    public function edit(User $user)
     {
         //
     }
@@ -66,10 +64,10 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Posts  $posts
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Posts $posts)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -77,14 +75,11 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Posts  $posts
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $post=Posts::find($id);
-        $post->delete();
-
-        return Posts::all();
+        //
     }
 }

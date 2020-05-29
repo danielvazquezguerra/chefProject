@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        User::truncate();
+        Posts::truncate();
+
+        $numUsers = 10;
+        $numPosts = 10;
+
     }
 }

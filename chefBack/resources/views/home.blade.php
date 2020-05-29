@@ -12,7 +12,11 @@
 
         <div class="content">
             
-            @yield('users')
+<?php 
+
+ 
+
+?>
 
         </div>
         

@@ -2,11 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Posts;
+use App\Recipe;
 use Faker\Generator as Faker;
 
-$factory->define(Posts::class, function (Faker $faker) {
+$factory->define(Recipe::class, function (Faker $faker) {
     return [
-        
+        //
     ];
 });
