@@ -25,5 +25,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $users;
 // });
 
+Route::get('/','HomeController@index');
 Route::get('/users','HomeController@allUsers');
 Route::apiResource('posts',"PostsController");
