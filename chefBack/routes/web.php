@@ -16,30 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/','HomeController@index');
-Route::get('/', function() {
-    return ["nombre" => "Daniel"];
-});
-
-Route::get('/hola', function (){
-    
-    $nombre=request('nombre');
-
-    return view('home', ['name' => $nombre]);
-});
-
-// Route::get('/hola/{name}', function($name){
-//     return view('home',
-//     ['name'=> $name]
-// );
-
-// });
-
 
 Route::get('/posts','PostsController@index');
-
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/blog/{$post}','HolaController@show');

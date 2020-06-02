@@ -14,13 +14,19 @@ class CreateRecipesTable extends Migration
     public function up()
     {
         Schema::create('recipes', function (Blueprint $table) {
-            $table->foreignId('user_id');
+
+            $table->foreignId('post_id')->default = 1;
             $table->integer('serves');
-            $table->enum('level', ['easy', 'medium', 'hard']);
+            $table->integer('level');
             $table->integer('duration');
-            $table->string('ingredientes', 140);
+            $table->string('ingredients', 140);
             $table->timestamps();
+
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
+
+
+
     }
 
     /**
