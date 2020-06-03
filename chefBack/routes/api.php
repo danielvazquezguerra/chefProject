@@ -27,4 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/','HomeController@index');
 Route::get('/users','HomeController@allUsers');
-Route::apiResource('posts',"PostsController");
+Route::apiResource('posts',"PostController");
+Route::apiResource('users',"UserController");
+Route::apiResource('recipes',"RecipeController");
+Route::apiResource('likes',"LikeController");

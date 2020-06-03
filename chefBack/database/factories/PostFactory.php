@@ -10,5 +10,7 @@ $factory->define(Post::class, function (Faker $faker) {
 
         'content' => $faker->sentence($nbWords = 20, $variableNbWords = true),
         'images' => $faker->imageUrl($width = 640, $height = 480),
+        'recipe_id' => random_int(1,30),
+
     ];
 });

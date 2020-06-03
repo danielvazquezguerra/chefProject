@@ -26,9 +26,7 @@ class CreateRecipesTable extends Migration
 
         Schema::table('posts', function (Blueprint $table) {
             
-        
-            $table->foreignId('recipe_id');
-        
+            $table->foreignId('recipe_id')->nullable();
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
         }); 
 
