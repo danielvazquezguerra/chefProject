@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,7 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        $users = User::all();
+
+        return response()->json(['data'=>$users], 200);
     }
 
     /**
@@ -33,10 +36,15 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public function store(Request $request)
-    {
-        //
-    }
+    
+        {
+            $body = $request->all();
+            $body['password'] = Hash::make($body['password']);
+            $user = User::create($body);
+            return response($user, 201);
+        }
 
     /**
      * Display the specified resource.
@@ -44,9 +52,11 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return response()->json(['data'=>$user], 200);
     }
 
     /**
@@ -55,9 +65,25 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($request, $id)
     {
-        //
+        
+        $user = User::find($id);
+        if($request->has('name')) {
+            $user->name = $request->name();
+        }
+
+        if($request->has('email') && $user->email!=$request->email) {
+            $user->email = $request->email();
+        }
+
+        if($request->has('password') && $user->password!=$request->password) {
+            $user->password = $request->password();
+        }
+
+        $user->save();
+
+        return response()->json(['data'=>$user], 201);
     }
 
     /**

@@ -25,9 +25,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $users;
 // });
 
-Route::get('/','HomeController@index');
 Route::get('/users','HomeController@allUsers');
+Route::post('/users/register','UserController@store');
 Route::apiResource('posts',"PostController");
-Route::apiResource('users',"UserController");
+// Route::apiResource('users',"UserController");
 Route::apiResource('recipes',"RecipeController");
 Route::apiResource('likes',"LikeController");
+
+
+Route::fallback(function (){
+    return response()->json(['mensaje'=>'ruta no encontrada'], 404);
+});
