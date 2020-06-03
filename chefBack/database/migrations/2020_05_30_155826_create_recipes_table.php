@@ -15,15 +15,22 @@ class CreateRecipesTable extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
 
-            $table->foreignId('post_id')->default = 1;
+            $table->id();
             $table->integer('serves');
             $table->integer('level');
             $table->integer('duration');
             $table->string('ingredients', 140);
             $table->timestamps();
 
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
+
+        Schema::table('posts', function (Blueprint $table) {
+            
+        
+            $table->foreignId('recipe_id');
+        
+            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
+        }); 
 
 
 
