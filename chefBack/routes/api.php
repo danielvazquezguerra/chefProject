@@ -25,13 +25,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $users;
 // });
 
-Route::get('/users','HomeController@allUsers');
-Route::post('/users/register','UserController@store');
-Route::apiResource('posts',"PostController");
+// Route::get('/users','HomeController@allUsers');
+// Route::apiResource('posts',"PostController");
 // Route::apiResource('users',"UserController");
-Route::apiResource('recipes',"RecipeController");
-Route::apiResource('likes',"LikeController");
+// Route::apiResource('recipes',"RecipeController");
+// Route::apiResource('likes',"LikeController");
 
+Route::prefix('users')->group(function () {
+Route::post('/register','UserController@store');
+Route::post('/login','UserController@login');
+Route::get('/logout','UserController@logout');
+Route::middleware('auth:api')->group(function (){
+Route::get('/info', 'UserController@getUserInfo');
+});
+
+});
 
 Route::fallback(function (){
     return response()->json(['mensaje'=>'ruta no encontrada'], 404);

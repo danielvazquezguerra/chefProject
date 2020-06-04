@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -52,6 +53,30 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
+
+    public function login(Request $request)
+    {
+        try {
+            $credentials = $request->only(['email', 'password']);
+            if (!Auth::attempt($credentials)) {
+                return response([
+                    'message' => 'Wrong credentials'
+                ], 400);
+            }
+            $user = Auth::user();
+            $token = $user->createToken('authToken')->accessToken;
+            $user->token=$token;
+            return response([
+                'user'=>$user
+            ]);
+        } catch (\Exception $e) {
+            return response([
+                'message' => 'There was an error trying to login the user',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
     public function show($id)
     {
         $user = User::findOrFail($id);
