@@ -32,7 +32,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::apiResource('likes',"LikeController");
 
 Route::prefix('users')->group(function () {
-Route::post('/register','UserController@store');
+    //routes protected. 
+Route::middleware('auth:api')->get('','UserController@getAll');
+Route::post('/register','UserController@register');
 Route::post('/login','UserController@login');
 Route::get('/logout','UserController@logout');
 Route::middleware('auth:api')->group(function (){
