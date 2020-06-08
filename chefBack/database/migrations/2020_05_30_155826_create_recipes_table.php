@@ -30,8 +30,6 @@ class CreateRecipesTable extends Migration
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
         }); 
 
-
-
     }
 
     /**

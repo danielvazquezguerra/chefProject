@@ -33,16 +33,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('users')->group(function () {
     //routes protected. 
-Route::middleware('auth:api')->get('','UserController@getAll');
-Route::post('/register','UserController@register');
-Route::post('/login','UserController@login');
-Route::get('/logout','UserController@logout');
-Route::middleware('auth:api')->group(function (){
-Route::get('/info', 'UserController@getUserInfo');
+    Route::middleware('auth:api')->get('', 'UserController@getAll');
+    Route::post('/register', 'UserController@register');
+    Route::post('/login', 'UserController@login');
+    Route::get('/logout', 'UserController@logout');
+    Route::middleware('auth:api')->group(function () {
+        Route::get('/info', 'UserController@getUserInfo');
+    });
 });
+
+Route::prefix('posts')->middleware('auth:api')->group(function () {
+
+    Route::get('/addlike/{post_id}', 'LikeController@create');
+    
 
 });
 
-Route::fallback(function (){
-    return response()->json(['mensaje'=>'ruta no encontrada'], 404);
+Route::fallback(function () {
+    return response()->json(['mensaje' => 'ruta no encontrada'], 404);
 });

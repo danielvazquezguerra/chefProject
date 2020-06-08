@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Like;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
@@ -22,9 +23,10 @@ class LikeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($post_id)
     {
-        //
+        Like::create(['post_id'=>$post_id, 'user_id' => Auth::id()]);
+
     }
 
     /**
