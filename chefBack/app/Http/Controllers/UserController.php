@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+
     {
         $users = User::all();
 
@@ -26,10 +28,6 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -77,13 +75,6 @@ class UserController extends Controller
         }
     }
     
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-
-        return response()->json(['data'=>$user], 200);
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -133,4 +124,48 @@ class UserController extends Controller
     {
         //
     }
+
+    public function uploadImage(Request $request)
+    {
+        try {
+            $request->validate(['img' => 'required|image']);
+            $user = Auth::user();
+            $imageName = time() . '-' . request()->img->getClientOriginalName();
+            request()->img->move('images/users', $imageName);
+            $user->update(['imagen' => $imageName]);
+            return response($user); 
+
+        } catch (\Exception $e) {
+            return response([
+                'error' => $e,
+            ], 500);
+        }
+    }
+
+    public function GetAll(Request $request)
+    {
+        try {
+            $body = Post::with('user')->get();
+            return response($body, 201);
+        } catch (\Exception $e) {
+            return response([
+                'message' => 'There was an error trying to register the user',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function PostByUser()
+    {
+        try {
+            $body = Post::with('user')->get();
+            return response($body, 201);
+        } catch (\Exception $e) {
+            return response([
+                'message' => 'There was an error trying to register the user',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
 }

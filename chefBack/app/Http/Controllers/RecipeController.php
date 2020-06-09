@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
@@ -22,10 +23,27 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    public function insert(Request $request)
+    
+        {
+            try {
+                $body = $request->all();
+                $body['user_id'] = Auth::id();
+                if($request->has('imagen')){
+                    $imageName = time() . '-' . request()->imagen->getClientOriginalName(); //time() es como Date.now()
+                    request()->imagen->move('images/posts', $imageName); //mueve el archivo subido al directorio indicado (en este caso public path es dentro de la carpeta public)
+                    $body['imagen'] = $imageName;    
+                }
+                $post = Recipe::create($body);
+                return response($post, 201);
+            } catch (\Exception $e) {
+                return response([
+                    'message' => 'There was an error trying to register the user',
+                    'error' => $e->getMessage()
+                ], 500);
+            }
+        }
+    
 
     /**
      * Store a newly created resource in storage.

@@ -44,9 +44,14 @@ Route::prefix('users')->group(function () {
 
 Route::prefix('posts')->middleware('auth:api')->group(function () {
 
-    Route::get('/addlike/{post_id}', 'LikeController@create');
-    
+    Route::get('/like/{post_id}', 'LikeController@show');
+    Route::post('addlike/', 'LikeController@create');
+    Route::get('/recipes', 'RecipeController@show');
+    Route::post('/addrecipe', 'RecipeController@insert');
+    Route::get('/all', 'PostController@getPostAll');
+    Route::post('/insert', 'PostController@insert');
 
+    
 });
 
 Route::fallback(function () {
