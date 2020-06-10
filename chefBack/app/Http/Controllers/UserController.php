@@ -46,6 +46,17 @@ class UserController extends Controller
             return response($user, 201);
         }
 
+  
+        public function getUserInfo(Request $request)
+
+        {
+            $user = Auth::user();
+            return $user->load('post');
+  
+        }
+    
+
+
     /**
      * Display the specified resource.
      *

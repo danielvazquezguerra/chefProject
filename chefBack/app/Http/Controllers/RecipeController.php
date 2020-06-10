@@ -17,7 +17,7 @@ class RecipeController extends Controller
     {
         try {
             $body = Recipe::orderBy('id','DESC')->get();   
-            return response($body->load('user.recipe.likes'), 201);
+            return response($body->load('user.recipe.likes','likes'), 201);
         } catch (\Exception $e) {
             return response([
                 'message' => 'There was an error trying to register the user',
@@ -50,6 +50,9 @@ class RecipeController extends Controller
             ], 500);
         }
     }
+
+
+
     
 
     /**

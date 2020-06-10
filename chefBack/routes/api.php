@@ -34,6 +34,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('users')->group(function () {
     //routes protected. 
     Route::middleware('auth:api')->get('', 'UserController@getAll');
+    Route::middleware('auth:api')->post('/userimg', 'UserController@uploadImage');
     Route::post('/register', 'UserController@register');
     Route::post('/login', 'UserController@login');
     Route::get('/logout', 'UserController@logout');
@@ -50,6 +51,7 @@ Route::prefix('posts')->middleware('auth:api')->group(function () {
     Route::post('/addrecipe', 'RecipeController@insert');
     Route::get('/all', 'RecipeController@getPostAll');
     Route::post('/like/{id}','LikeController@like');
+    Route::post('/dislike/{id}','LikeController@dislike');
 });
 
 

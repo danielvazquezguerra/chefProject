@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 use App\Recipe;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 class LikeController extends Controller
 {
 public function Like($id, Request $request)
@@ -21,5 +23,13 @@ public function Like($id, Request $request)
                 'message' => 'thanks u '
             ],201);
         }
+    }
+    public function disLike($id, Request $request){
+        $user_id = Auth::id();
+        $dislikes = DB::table('likes')->where('user_id',$user_id)->where('likeable_id',$id)->delete();
+         return response([
+             $dislikes,
+             'message' => 'No me gusta'
+         ],201);  
     }
 }
