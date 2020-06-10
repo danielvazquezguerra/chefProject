@@ -8,7 +8,7 @@ class Recipe extends Model
 {
     protected $fillable = [
 
-    'title', 'images','ingredients', 'method',' duration', 'level', 'serves', 'user_id'
+    'title', 'images','ingredients', 'method','time', 'level', 'serves', 'user_id'
 
     ];
 

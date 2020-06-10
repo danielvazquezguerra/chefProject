@@ -21,9 +21,9 @@ class CreateRecipesTable extends Migration
             $table->string('images', 150)->nullable();
             $table->string('serves')->nullable();
             $table->string('level')->nullable();
-            $table->string('duration')->nullable();
-            $table->string('ingredients', 140)->nullable();
-            $table->string('method', 140)->nullable();
+            $table->string('time')->nullable();
+            $table->longText('ingredients')->nullable();
+            $table->longText('method')->nullable();
             $table->timestamps();
 
     
