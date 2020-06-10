@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Recipe;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -145,7 +146,7 @@ class UserController extends Controller
     public function GetAll(Request $request)
     {
         try {
-            $body = Post::with('user')->get();
+            $body = Recipe::with('user')->get();
             return response($body, 201);
         } catch (\Exception $e) {
             return response([
@@ -158,7 +159,7 @@ class UserController extends Controller
     public function PostByUser()
     {
         try {
-            $body = Post::with('user')->get();
+            $body = Recipe::with('user')->get();
             return response($body, 201);
         } catch (\Exception $e) {
             return response([

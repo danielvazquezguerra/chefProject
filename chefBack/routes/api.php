@@ -48,11 +48,11 @@ Route::prefix('posts')->middleware('auth:api')->group(function () {
     Route::post('addlike/', 'LikeController@create');
     Route::get('/recipes', 'RecipeController@show');
     Route::post('/addrecipe', 'RecipeController@insert');
-    Route::get('/all', 'PostController@getPostAll');
-    Route::post('/insert', 'PostController@insert');
-
-    
+    Route::get('/all', 'RecipeController@getPostAll');
+    Route::post('/like/{id}','LikeController@like');
 });
+
+
 
 Route::fallback(function () {
     return response()->json(['mensaje' => 'ruta no encontrada'], 404);

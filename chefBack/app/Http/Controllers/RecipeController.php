@@ -13,9 +13,17 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getPostAll(Request $request)
     {
-        //
+        try {
+            $body = Recipe::orderBy('id','DESC')->get();   
+            return response($body->load('user.recipe.likes'), 201);
+        } catch (\Exception $e) {
+            return response([
+                'message' => 'There was an error trying to register the user',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -24,25 +32,24 @@ class RecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function insert(Request $request)
-    
-        {
-            try {
-                $body = $request->all();
-                $body['user_id'] = Auth::id();
-                if($request->has('imagen')){
-                    $imageName = time() . '-' . request()->imagen->getClientOriginalName(); //time() es como Date.now()
-                    request()->imagen->move('images/posts', $imageName); //mueve el archivo subido al directorio indicado (en este caso public path es dentro de la carpeta public)
-                    $body['imagen'] = $imageName;    
-                }
-                $post = Recipe::create($body);
-                return response($post, 201);
-            } catch (\Exception $e) {
-                return response([
-                    'message' => 'There was an error trying to register the user',
-                    'error' => $e->getMessage()
-                ], 500);
+    {
+        try {
+            $body = $request->all();
+            $body['user_id'] = Auth::id();
+            if($request->has('images')){
+                $imageName = time() . '-' . request()->images->getClientOriginalName(); //time() es como Date.now()
+                request()->images->move('images/posts', $imageName); //mueve el archivo subido al directorio indicado (en este caso public path es dentro de la carpeta public)
+                $body['images'] = $imageName;    
             }
+            $post = Recipe::create($body);
+            return response($post, 201);
+        } catch (\Exception $e) {
+            return response([
+                'message' => 'There was an error trying to register the user',
+                'error' => $e->getMessage()
+            ], 500);
         }
+    }
     
 
     /**
@@ -51,32 +58,20 @@ class RecipeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
+ 
     /**
      * Display the specified resource.
      *
      * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function show(Recipe $recipe)
-    {
-        //
-    }
-
+ 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function edit(Recipe $recipe)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -85,11 +80,6 @@ class RecipeController extends Controller
      * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Recipe $recipe)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      *

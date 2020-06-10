@@ -16,19 +16,19 @@ class CreateRecipesTable extends Migration
         Schema::create('recipes', function (Blueprint $table) {
 
             $table->id();
-            $table->integer('serves')->nullable();
-            $table->integer('level')->nullable();
-            $table->integer('duration')->nullable();
+            $table->integer('user_id');
+            $table->text('title');
+            $table->string('images', 150)->nullable();
+            $table->string('serves')->nullable();
+            $table->string('level')->nullable();
+            $table->string('duration')->nullable();
             $table->string('ingredients', 140)->nullable();
+            $table->string('method', 140)->nullable();
             $table->timestamps();
 
+    
         });
 
-        Schema::table('posts', function (Blueprint $table) {
-            
-            $table->foreignId('recipe_id')->nullable();
-            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
-        }); 
 
     }
 
