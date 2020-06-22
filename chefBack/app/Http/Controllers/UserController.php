@@ -51,7 +51,7 @@ class UserController extends Controller
 
         {
             $user = Auth::user();
-            return $user->load('post');
+            return $user->load('post', 'imagen');
   
         }
     
